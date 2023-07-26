@@ -3,12 +3,12 @@ include_guard()
 # Run Conan for dependency management
 macro(run_conan)
   # Download automatically, you can also just copy the conan.cmake file
-  if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
-    message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
+  if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan_provider.cmake")
+    message(STATUS "Downloading conan_provider.cmake from https://github.com/conan-io/cmake-conan from branch develop2")
     file(
-      DOWNLOAD "https://raw.githubusercontent.com/conan-io/cmake-conan/0.17.0/conan.cmake"
-      "${CMAKE_BINARY_DIR}/conan.cmake"
-      EXPECTED_HASH SHA256=3bef79da16c2e031dc429e1dac87a08b9226418b300ce004cc125a82687baeef
+      DOWNLOAD "https://raw.githubusercontent.com/conan-io/cmake-conan/develop2/conan_provider.cmake"
+      "${CMAKE_BINARY_DIR}/conan_provider.cmake"
+      EXPECTED_HASH SHA256=cc33d9d67db78414f0948d83c1e2172ff0f7454799fd35a8625b1547a036ad00
       TLS_VERIFY ON
     )
   endif()
@@ -17,7 +17,7 @@ macro(run_conan)
   list(APPEND CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
   list(APPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR})
 
-  include(${CMAKE_BINARY_DIR}/conan.cmake)
+  include(${CMAKE_BINARY_DIR}/conan_provider.cmake)
 
   # Add (or remove) remotes as needed
   # conan_add_remote(NAME conan-center URL https://center.conan.io)
